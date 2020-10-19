@@ -17,8 +17,10 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            {{-- {{Auth::user()->name}}  --}}
-            {{-- ({{Auth::user()->type}}) --}}
+            {{-- {{
+              Auth::user() = [ ''];
+              Auth::user()->name}} --}}
+            {{-- {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}} --}}
           </a>
         </div>
       </div>
@@ -159,6 +161,98 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-plus-square"></i>
               <p>
+                Student Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../examples/login.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Login</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../examples/register.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Register</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="../../starter.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Starter Page</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Research Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../examples/login.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Login</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../examples/register.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Register</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="../../starter.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Starter Page</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Post Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('post.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Post List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('post.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="../../starter.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Starter Page</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
                 Research Center
                 <i class="fas fa-angle-left right"></i>
               </p>
@@ -186,7 +280,8 @@
             </ul>
           </li>
 
-
+{{-- //User management Block --}}
+@can('isSuperAdmin')
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-plus-square"></i>
@@ -197,7 +292,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('user.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
@@ -217,38 +312,41 @@
               </li>
             </ul>
           </li>
+@endcan
 
-
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>
-                Academic
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="../examples/login.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Login</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../examples/register.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Register</p>
-                </a>
-              </li>
-              
-              <li class="nav-item">
-                <a href="../../starter.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Starter Page</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+@can('isDean')
+  
+<li class="nav-item has-treeview menu-open">
+  <a href="#" class="nav-link active">
+    <i class="nav-icon far fa-plus-square"></i>
+    <p>
+      Academic
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="../examples/login.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Login</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="../examples/register.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Register</p>
+      </a>
+    </li>
+    
+    <li class="nav-item">
+      <a href="../../starter.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Starter Page</p>
+      </a>
+    </li>
+  </ul>
+</li>
+@endcan
           <li class="nav-header">LABELS</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -274,3 +372,78 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+
+  {{-- http://127.0.0.1:8000/user
+  https://www.codechief.org/article/laravel-gate-and-policy-example-from-scratch
+  @can('isAdmin')
+  <div class="btn btn-success btn-lg">
+    <li class="nav-item has-treeview menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon far fa-plus-square"></i>
+        <p>
+          Student Info
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="../examples/login.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Login</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../examples/register.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Register</p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="../../starter.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Starter Page</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+  @elsecan('isManager')
+  <div class="btn btn-primary btn-lg">
+    <li class="nav-item has-treeview menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon far fa-plus-square"></i>
+        <p>
+          Faculty Members
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="../examples/login.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Login</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../examples/register.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Register</p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="../../starter.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Starter Page</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+  @else
+  <div class="btn btn-info btn-lg">
+  You have User Access
+  </div>
+  @endcan --}}

@@ -4,12 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Gate;
 
 class UserController extends Controller
 {
    
     public function index()
     {
+        // 'isRegistrar', 
+        // isRegistrar means nobody able to access this page without Registrar
+        if(!Gate::allows('isRegistrar') && (!Gate::allows('isSuperAdmin'))){
+            abort(404, "You can do this actions");
+            // return redirect->back;
+        }
+        /* else{
+            Gate::allows('isRegistrar');
+            
+
+            
+        } */
+        // if (Gate::denies('isAdmin')) {
+
+        //     dd('You are not admin');
+    
+        // } else {
+    
+        //     dd('Admin allowed');
+    
+        // }
+
+      /*   if (Gate::denies('isAdmin')) {
+
+            dd('You are not admin');
+    
+        } else {
+    
+            dd('Admin allowed');
+    
+        } */
+
+        
+       
+        // return redirect->back();
         $users = User::all();
         // return $users;
       return view('users.index', get_defined_vars());
@@ -36,10 +72,10 @@ class UserController extends Controller
         $users->name = $request->input('name');
         $users->type = $request->input('type');
         $users->email = $request->input('email');
-        $users->password = $request->input('password');
+        $users->password = bcrypt($request->input('password'));
         $users->photo = $request->input('photo');
         $users->save();
-        return redirect('/user')->with('success', 'Data Savevd');
+        return redirect('/user')->with('success', 'Data Saved');
 
     }
 
@@ -64,7 +100,7 @@ class UserController extends Controller
             'name' => 'required',
             'type' => 'required',
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'sometimes|nullable|min:8',
             // 'photo' => 'required'
         ]);
 
@@ -72,7 +108,7 @@ class UserController extends Controller
         $users->name = $request->input('name');
         $users->type = $request->input('type');
         $users->email = $request->input('email');
-        $users->password = $request->input('password');
+        $users->password = bcrypt($request->input('password'));
         $users->photo = $request->input('photo');
         $users->save();
         return redirect('/user')->with('success', 'Data Updated!');
